@@ -49,7 +49,7 @@ async def upload_image(request: Request, file: UploadFile = File(...), threshold
         return {"error": "Failed to load image"}
 
     # Resize for lower memory usage
-    image_resized = cv2.resize(image, (800, 800))
+    image_resized = cv2.resize(image, (400, 400))
     image_rgb = cv2.cvtColor(image_resized, cv2.COLOR_BGR2RGB)
 
     transform = transforms.Compose([
