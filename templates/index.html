@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Receipt Segmentation</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Receipt Segmentation</h1>
+        <form action="/upload/" method="post" enctype="multipart/form-data" class="upload-form">
+            <div class="form-group">
+                <label for="file">Upload Image:</label>
+                <input type="file" id="file" name="file" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label for="threshold">Set Threshold:</label>
+                <input type="range" id="threshold" name="threshold" min="0" max="1" step="0.01" value="0.5">
+                <span id="threshold-value">Threshold: 0.5</span>
+            </div>
+
+            <button type="submit" class="btn">Upload</button>
+        </form>
+
+        <div class="output">
+            {% if output_images %}
+                <h2>Segmented Images</h2>
+                <div class="image-gallery">
+                    {% for image in output_images %}
+                        <div class="image-item">
+                            <img src="{{ image }}" alt="Segmented Image" class="output-img">
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("threshold").addEventListener("input", function() {
+            document.getElementById("threshold-value").innerText = "Threshold: " + this.value;
+        });
+    </script>
+</body>
+</html>
